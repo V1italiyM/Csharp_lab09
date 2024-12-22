@@ -1,6 +1,6 @@
 using System;
-// Подключаем библиотеки, необходимые для работы с коллекциями, файловой системой, HTTP-запросами,
-// JSON-обработкой и формами Windows Forms.
+// ГЏГ®Г¤ГЄГ«ГѕГ·Г ГҐГ¬ ГЎГЁГЎГ«ГЁГ®ГІГҐГЄГЁ, Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г»ГҐ Г¤Г«Гї Г°Г ГЎГ®ГІГ» Г± ГЄГ®Г«Г«ГҐГЄГ¶ГЁГїГ¬ГЁ, ГґГ Г©Г«Г®ГўГ®Г© Г±ГЁГ±ГІГҐГ¬Г®Г©, HTTP-Г§Г ГЇГ°Г®Г±Г Г¬ГЁ,
+// JSON-Г®ГЎГ°Г ГЎГ®ГІГЄГ®Г© ГЁ ГґГ®Г°Г¬Г Г¬ГЁ Windows Forms.
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,131 +16,131 @@ using System.Windows.Forms;
 
 namespace WeatherApp
 {
-    // Главная форма приложения, которая управляет пользовательским интерфейсом
+    // ГѓГ«Г ГўГ­Г Гї ГґГ®Г°Г¬Г  ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї, ГЄГ®ГІГ®Г°Г Гї ГіГЇГ°Г ГўГ«ГїГҐГІ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГјГ±ГЄГЁГ¬ ГЁГ­ГІГҐГ°ГґГҐГ©Г±Г®Г¬
     public partial class Form1 : Form
     {
-        // API ключ для доступа к OpenWeatherMap
-        private readonly string apiKey = "b30921ec23d5c88c96c22616fb2f3933";
+        // API ГЄГ«ГѕГ· Г¤Г«Гї Г¤Г®Г±ГІГіГЇГ  ГЄ OpenWeatherMap
+        private readonly string apiKey = "";
 
-        // URL для получения данных о погоде
+        // URL Г¤Г«Гї ГЇГ®Г«ГіГ·ГҐГ­ГЁГї Г¤Г Г­Г­Г»Гµ Г® ГЇГ®ГЈГ®Г¤ГҐ
         private readonly string apiUrl = "https://api.openweathermap.org/data/2.5/weather";
 
-        // Путь к файлу, содержащему данные о городах
+        // ГЏГіГІГј ГЄ ГґГ Г©Г«Гі, Г±Г®Г¤ГҐГ°Г¦Г Г№ГҐГ¬Гі Г¤Г Г­Г­Г»ГҐ Г® ГЈГ®Г°Г®Г¤Г Гµ
         private readonly string cityPath = "C:\\Users\\CYBORG\\source\\repos\\lab09\\lab09\\files\\city.txt";
 
-        // Список объектов городов
+        // Г‘ГЇГЁГ±Г®ГЄ Г®ГЎГєГҐГЄГІГ®Гў ГЈГ®Г°Г®Г¤Г®Гў
         private readonly List<City> _cities = new List<City>();
 
-        // Конструктор формы, вызывается при ее создании
+        // ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГґГ®Г°Г¬Г», ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЇГ°ГЁ ГҐГҐ Г±Г®Г§Г¤Г Г­ГЁГЁ
         public Form1()
         {
-            InitializeComponent(); // Инициализация компонентов формы
-            LoadCitiesAsync(cityPath); // Асинхронная загрузка городов из файла
+            InitializeComponent(); // Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГї ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ®Гў ГґГ®Г°Г¬Г»
+            LoadCitiesAsync(cityPath); // ГЂГ±ГЁГ­ГµГ°Г®Г­Г­Г Гї Г§Г ГЈГ°ГіГ§ГЄГ  ГЈГ®Г°Г®Г¤Г®Гў ГЁГ§ ГґГ Г©Г«Г 
         }
 
-        // Метод для асинхронной загрузки данных о городах
+        // ГЊГҐГІГ®Г¤ Г¤Г«Гї Г Г±ГЁГ­ГµГ°Г®Г­Г­Г®Г© Г§Г ГЈГ°ГіГ§ГЄГЁ Г¤Г Г­Г­Г»Гµ Г® ГЈГ®Г°Г®Г¤Г Гµ
         private async Task LoadCitiesAsync(string filePath)
         {
             try
             {
-                // Чтение всех строк из файла
+                // Г—ГІГҐГ­ГЁГҐ ГўГ±ГҐГµ Г±ГІГ°Г®ГЄ ГЁГ§ ГґГ Г©Г«Г 
                 var cities = File.ReadAllLines(filePath);
 
                 foreach (var city in cities)
                 {
-                    // Разделяем строку на название города и координаты
+                    // ГђГ Г§Г¤ГҐГ«ГїГҐГ¬ Г±ГІГ°Г®ГЄГі Г­Г  Г­Г Г§ГўГ Г­ГЁГҐ ГЈГ®Г°Г®Г¤Г  ГЁ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ»
                     var parts = city.Split('\t');
                     if (parts.Length == 2)
                     {
                         var name = parts[0];
                         var coord = parts[1].Replace(" ", "").Split(',');
 
-                        // Преобразуем координаты в числовой формат
+                        // ГЏГ°ГҐГ®ГЎГ°Г Г§ГіГҐГ¬ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Гў Г·ГЁГ±Г«Г®ГўГ®Г© ГґГ®Г°Г¬Г ГІ
                         var latitude = Convert.ToDouble(coord[0].Replace(".", ","));
                         var longitude = Convert.ToDouble(coord[1].Replace(".", ","));
 
-                        // Создаем объект City и добавляем в список
+                        // Г‘Г®Г§Г¤Г ГҐГ¬ Г®ГЎГєГҐГЄГІ City ГЁ Г¤Г®ГЎГ ГўГ«ГїГҐГ¬ Гў Г±ГЇГЁГ±Г®ГЄ
                         var info = new City(name, latitude, longitude);
                         _cities.Add(info);
                     }
                 }
 
-                // Заполняем выпадающий список ComboBox данными из списка городов
+                // Г‡Г ГЇГ®Г«Г­ГїГҐГ¬ ГўГ»ГЇГ Г¤Г ГѕГ№ГЁГ© Г±ГЇГЁГ±Г®ГЄ ComboBox Г¤Г Г­Г­Г»Г¬ГЁ ГЁГ§ Г±ГЇГЁГ±ГЄГ  ГЈГ®Г°Г®Г¤Г®Гў
                 CityComboBox.DataSource = _cities;
             }
             catch (Exception ex)
             {
-                // Отображаем сообщение об ошибке, если что-то пошло не так
+                // ГЋГІГ®ГЎГ°Г Г¦Г ГҐГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГЎ Г®ГёГЁГЎГЄГҐ, ГҐГ±Г«ГЁ Г·ГІГ®-ГІГ® ГЇГ®ГёГ«Г® Г­ГҐ ГІГ ГЄ
                 MessageBox.Show($"Error loading cities: {ex.Message}");
             }
         }
 
-        // Обработчик события нажатия на кнопку "Get Weather"
+        // ГЋГЎГ°Г ГЎГ®ГІГ·ГЁГЄ Г±Г®ГЎГ»ГІГЁГї Г­Г Г¦Г ГІГЁГї Г­Г  ГЄГ­Г®ГЇГЄГі "Get Weather"
         private async void GetWeatherButton_Click(object sender, EventArgs e)
         {
-            // Проверяем, выбран ли город в выпадающем списке
+            // ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, ГўГ»ГЎГ°Г Г­ Г«ГЁ ГЈГ®Г°Г®Г¤ Гў ГўГ»ГЇГ Г¤Г ГѕГ№ГҐГ¬ Г±ГЇГЁГ±ГЄГҐ
             if (CityComboBox.SelectedItem is City selectedCity)
             {
                 try
                 {
-                    // Получаем данные о погоде для выбранного города
+                    // ГЏГ®Г«ГіГ·Г ГҐГ¬ Г¤Г Г­Г­Г»ГҐ Г® ГЇГ®ГЈГ®Г¤ГҐ Г¤Г«Гї ГўГ»ГЎГ°Г Г­Г­Г®ГЈГ® ГЈГ®Г°Г®Г¤Г 
                     var weather = await FetchWeatherAsync(apiUrl, selectedCity);
 
                     if (weather != null)
                     {
-                        // Если данные успешно получены, отображаем их в текстовом поле
+                        // Г…Г±Г«ГЁ Г¤Г Г­Г­Г»ГҐ ГіГ±ГЇГҐГёГ­Г® ГЇГ®Г«ГіГ·ГҐГ­Г», Г®ГІГ®ГЎГ°Г Г¦Г ГҐГ¬ ГЁГµ Гў ГІГҐГЄГ±ГІГ®ГўГ®Г¬ ГЇГ®Г«ГҐ
                         ResulttextBox.Text = weather.ToString();
                     }
                     else
                     {
-                        // Если данные не удалось получить, выводим сообщение
+                        // Г…Г±Г«ГЁ Г¤Г Г­Г­Г»ГҐ Г­ГҐ ГіГ¤Г Г«Г®Г±Гј ГЇГ®Г«ГіГ·ГЁГІГј, ГўГ»ГўГ®Г¤ГЁГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ
                         MessageBox.Show("Failed fetching weather data. Try again later.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Обрабатываем исключения и выводим сообщение об ошибке
+                    // ГЋГЎГ°Г ГЎГ ГІГ»ГўГ ГҐГ¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї ГЁ ГўГ»ГўГ®Г¤ГЁГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГЎ Г®ГёГЁГЎГЄГҐ
                     MessageBox.Show($"Error occurred: {ex.Message}");
                 }
             }
             else
             {
-                // Если город не выбран, просим пользователя выбрать его
+                // Г…Г±Г«ГЁ ГЈГ®Г°Г®Г¤ Г­ГҐ ГўГ»ГЎГ°Г Г­, ГЇГ°Г®Г±ГЁГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї ГўГ»ГЎГ°Г ГІГј ГҐГЈГ®
                 MessageBox.Show("Please choose a city");
             }
         }
 
-        // Метод для получения данных о погоде с API
+        // ГЊГҐГІГ®Г¤ Г¤Г«Гї ГЇГ®Г«ГіГ·ГҐГ­ГЁГї Г¤Г Г­Г­Г»Гµ Г® ГЇГ®ГЈГ®Г¤ГҐ Г± API
         private async Task<Weather> FetchWeatherAsync(string URL, City city)
         {
             try
             {
-                // Создаем HTTP-клиент для отправки запросов
+                // Г‘Г®Г§Г¤Г ГҐГ¬ HTTP-ГЄГ«ГЁГҐГ­ГІ Г¤Г«Гї Г®ГІГЇГ°Г ГўГЄГЁ Г§Г ГЇГ°Г®Г±Г®Гў
                 HttpClient client = new HttpClient
                 {
                     BaseAddress = new Uri(URL)
                 };
 
-                // Очищаем заголовки клиента и задаем, что ожидаем ответ в формате JSON
+                // ГЋГ·ГЁГ№Г ГҐГ¬ Г§Г ГЈГ®Г«Г®ГўГЄГЁ ГЄГ«ГЁГҐГ­ГІГ  ГЁ Г§Г Г¤Г ГҐГ¬, Г·ГІГ® Г®Г¦ГЁГ¤Г ГҐГ¬ Г®ГІГўГҐГІ Гў ГґГ®Г°Г¬Г ГІГҐ JSON
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                // Формируем URL с параметрами (координаты города, API-ключ и единицы измерения)
+                // Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ URL Г± ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬ГЁ (ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЈГ®Г°Г®Г¤Г , API-ГЄГ«ГѕГ· ГЁ ГҐГ¤ГЁГ­ГЁГ¶Г» ГЁГ§Г¬ГҐГ°ГҐГ­ГЁГї)
                 var urlParameters = $"?lat={city.Latitude}&lon={city.Longitude}&appid={apiKey}&units=metric";
                 var fullUrl = URL + urlParameters;
 
-                // Отправляем GET-запрос к API
+                // ГЋГІГЇГ°Г ГўГ«ГїГҐГ¬ GET-Г§Г ГЇГ°Г®Г± ГЄ API
                 var response = await client.GetAsync(fullUrl);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Если запрос успешен, читаем содержимое ответа как строку
+                    // Г…Г±Г«ГЁ Г§Г ГЇГ°Г®Г± ГіГ±ГЇГҐГёГҐГ­, Г·ГЁГІГ ГҐГ¬ Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ Г®ГІГўГҐГІГ  ГЄГ ГЄ Г±ГІГ°Г®ГЄГі
                     var responseString = await response.Content.ReadAsStringAsync();
 
-                    // Парсим строку JSON в объект
+                    // ГЏГ Г°Г±ГЁГ¬ Г±ГІГ°Г®ГЄГі JSON Гў Г®ГЎГєГҐГЄГІ
                     var json = JsonObject.Parse(responseString);
 
-                    // Извлекаем необходимые данные и создаем объект Weather
+                    // Г€Г§ГўГ«ГҐГЄГ ГҐГ¬ Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г»ГҐ Г¤Г Г­Г­Г»ГҐ ГЁ Г±Г®Г§Г¤Г ГҐГ¬ Г®ГЎГєГҐГЄГІ Weather
                     Weather res = new Weather
                     {
                         Country = (string)json["sys"]["country"],
@@ -153,21 +153,21 @@ namespace WeatherApp
                 }
                 else
                 {
-                    // Если запрос завершился с ошибкой, выводим сообщение
+                    // Г…Г±Г«ГЁ Г§Г ГЇГ°Г®Г± Г§Г ГўГҐГ°ГёГЁГ«Г±Гї Г± Г®ГёГЁГЎГЄГ®Г©, ГўГ»ГўГ®Г¤ГЁГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ
                     MessageBox.Show($"API error: {response.StatusCode}");
                 }
                 return null;
             }
             catch (Exception ex)
             {
-                // Обрабатываем исключения и выводим сообщение об ошибке
+                // ГЋГЎГ°Г ГЎГ ГІГ»ГўГ ГҐГ¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї ГЁ ГўГ»ГўГ®Г¤ГЁГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГЎ Г®ГёГЁГЎГЄГҐ
                 MessageBox.Show($"Failed fetching weather data: {ex.Message}");
                 return null;
             }
         }
     }
 
-    // Класс для представления города
+    // ГЉГ«Г Г±Г± Г¤Г«Гї ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГї ГЈГ®Г°Г®Г¤Г 
     public class City
     {
         public string Name { get; }
@@ -183,11 +183,11 @@ namespace WeatherApp
 
         public override string ToString()
         {
-            return Name; // Отображаем название города в выпадающем списке
+            return Name; // ГЋГІГ®ГЎГ°Г Г¦Г ГҐГ¬ Г­Г Г§ГўГ Г­ГЁГҐ ГЈГ®Г°Г®Г¤Г  Гў ГўГ»ГЇГ Г¤Г ГѕГ№ГҐГ¬ Г±ГЇГЁГ±ГЄГҐ
         }
     }
 
-    // Класс для представления данных о погоде
+    // ГЉГ«Г Г±Г± Г¤Г«Гї ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГї Г¤Г Г­Г­Г»Гµ Г® ГЇГ®ГЈГ®Г¤ГҐ
     public class Weather
     {
         public string Country { get; set; }
@@ -195,7 +195,7 @@ namespace WeatherApp
         public double Temp { get; set; }
         public string Description { get; set; }
 
-        // Конструктор с параметрами
+        // ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° Г± ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬ГЁ
         public Weather(string country, string name, double temp, string description)
         {
             Country = country;
@@ -204,15 +204,15 @@ namespace WeatherApp
             Description = description;
         }
 
-        // Пустой конструктор для удобства
+        // ГЏГіГ±ГІГ®Г© ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° Г¤Г«Гї ГіГ¤Г®ГЎГ±ГІГўГ 
         public Weather()
         {
         }
 
         public override string ToString()
         {
-            // Форматированный вывод данных о погоде
-            return $"Country: {Country}, City: {Name}, Temperature: {Temp} °C, Description: {Description}";
+            // Г”Г®Г°Г¬Г ГІГЁГ°Г®ГўГ Г­Г­Г»Г© ГўГ»ГўГ®Г¤ Г¤Г Г­Г­Г»Гµ Г® ГЇГ®ГЈГ®Г¤ГҐ
+            return $"Country: {Country}, City: {Name}, Temperature: {Temp} В°C, Description: {Description}";
         }
     }
 }
